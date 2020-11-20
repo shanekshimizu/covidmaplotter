@@ -1,0 +1,87 @@
+{% extends 'maps/main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Patient: {{ patient.name }}</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_patient' patient.id %}">Update Patient</a>
+			<p></p>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'delete_patient' patient.id %}">Delete Patient</a>
+			<hr>
+			
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email: {{ patient.email }}</p>
+			<p>Phone: {{ patient.phone }}</p>
+			<p>Primary Doctor: {{ patient.doctors }}</p>
+			<p>Address: {{ patient.address }}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Locations</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px"> {{ location_count }}</h1>
+			<hr>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+			<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-primary" href="{% url 'create_patient' %}">Add New Patient</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Patient</th>
+					<th>Doctor</th>
+					<th>Date Created</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+					{% for location in patient.locations.all %}
+					<tr>
+						<td>{{ location }}</td>
+						<td>{{ location.city }}</td>
+						<td>{{ location.date_created}}</td>
+						<td>{{ location.status }}</td>
+						<td><a class = "btn btn-sm btn-info" href = ""> Update </a></td>
+						<td><a class = "btn btn-sm btn-danger" href = ""> Remove </a></td>
+					{% endfor %}
+					</tr>
+
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
