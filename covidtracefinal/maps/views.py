@@ -22,8 +22,8 @@ def home(request):
     response = HttpResponse(open('maps/sample.xml').read(), content_type='application/xml')
   
 
-    dicontext = {'patients': patients, 'locations': locations, 'recent10locations': recent10locations, 'recent10count': recent10count, 'recent10patients': recent10patients}
-    return render(request, 'maps/dashboard.html', dicontext)
+    context = {'patients': patients, 'locations': locations, 'recent10locations': recent10locations, 'recent10count': recent10count, 'recent10patients': recent10patients}
+    return render(request, 'maps/dashboard.html', context)
 
 def doctor(request, pk_test):
     patient = Patient.objects.get(id=pk_test)
@@ -33,8 +33,8 @@ def doctor(request, pk_test):
     myFilter = LocationFilter(request.GET, queryset = locations)
     locations = myFilter.qs
 
-    dicontext = {'patient': patient, 'location_count': location_count, 'myFilter': myFilter, 'locations':locations}
-    return render(request, 'maps/doctor.html', dicontext)
+    context = {'patient': patient, 'location_count': location_count, 'myFilter': myFilter, 'locations':locations}
+    return render(request, 'maps/doctor.html', context)
 
 
 #-----Patient-----
@@ -50,8 +50,8 @@ def createPatient(request):
             form.save()
             return redirect('/')
 
-    dicontext = {'form': form, 'form_name': form_name, }
-    return render(request, 'maps/patient_form.html', dicontext)
+    context = {'form': form, 'form_name': form_name, }
+    return render(request, 'maps/patient_form.html', context)
 
 def updatePatient(request, pk):
     patient = Patient.objects.get(id=pk)
@@ -63,8 +63,8 @@ def updatePatient(request, pk):
             form.save()
             return redirect('/')
 
-    dicontext = {'form': form, 'form_name': form_name, }
-    return render(request, 'maps/patient_form.html', dicontext)
+    context = {'form': form, 'form_name': form_name, }
+    return render(request, 'maps/patient_form.html', context)
 
 def deletePatient(request, pk):
     patient = Patient.objects.get(id=pk)
@@ -72,8 +72,8 @@ def deletePatient(request, pk):
     if request.method == "POST":
         patient.delete()
         return redirect('/')
-    dicontext = {'patient': patient, 'form_name': form_name, }
-    return render(request, 'maps/delete.html', dicontext)
+    context = {'patient': patient, 'form_name': form_name, }
+    return render(request, 'maps/delete.html', context)
 
 #-----Location-----#
 def createLocation(request):
@@ -90,8 +90,8 @@ def createLocation(request):
             form.save()
             return redirect('/')
 
-    dicontext = {'form': form, 'form_name': form_name, }
-    return render(request, 'maps/patient_form.html', dicontext)
+    context = {'form': form, 'form_name': form_name, }
+    return render(request, 'maps/patient_form.html', context)
 
 
 def updateLocation(request, pk):
@@ -105,8 +105,8 @@ def updateLocation(request, pk):
             form.save()
             return redirect('/')
 
-    dicontext = {'form': form, 'form_name': form_name, }
-    return render(request, 'maps/patient_form.html', dicontext)
+    context = {'form': form, 'form_name': form_name, }
+    return render(request, 'maps/patient_form.html', context)
 
 def deleteLocation(request, pk):
     location = Location.objects.get(id=pk)
@@ -114,8 +114,8 @@ def deleteLocation(request, pk):
     if request.method == "POST":
         location.delete()
         return redirect('/')
-    dicontext = {'location': location, 'form_name': form_name, }
-    return render(request, 'maps/delete.html', dicontext)
+    context = {'location': location, 'form_name': form_name, }
+    return render(request, 'maps/delete.html', context)
 
 
 def about(request):
