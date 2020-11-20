@@ -9,6 +9,7 @@ from .dataxml import *
 def home(request):
     patients = Patient.objects.all()
     locations = Location.objects.all()
+    patient_count = Patient.objects.count()
 
     recent10patients = []
     recent10locations = []
@@ -20,9 +21,12 @@ def home(request):
         recent10count[location.city] = Location.objects.filter(city=location.city).count()
 
     response = HttpResponse(open('maps/sample.xml').read(), content_type='application/xml')
+
+    myFilter = PatientFilter(request.GET, queryset = patients)
+    patients = myFilter.qs
   
 
-    context = {'patients': patients, 'locations': locations, 'recent10locations': recent10locations, 'recent10count': recent10count, 'recent10patients': recent10patients}
+    context = {'patients': patients, 'locations': locations, 'recent10locations': recent10locations, 'recent10count': recent10count, 'recent10patients': recent10patients, 'myFilter': myFilter, 'patient_count': patient_count}
     return render(request, 'maps/dashboard.html', context)
 
 def doctor(request, pk_test):

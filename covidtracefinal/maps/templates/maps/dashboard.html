@@ -9,29 +9,39 @@
 
 
 <div class="row">
-	<div class="col-md-7">
+	<div class="col-md-12">
+		<div class="card card-body">
+			<form method="get">
+				{{ myFilter.form }}
+				<button class="btn btn-primary" type="submit">Filter Patient</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-12">
 		<h5>Patients</h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_patient' %}">Create Patient</a>
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_patient' %}">Search Patients</a>
 			<table class="table table-sm">
 				<tr>
 					<th></th>
 					<th>Patient</th>
+					<th>Address</th>
 					<th>Phone</th>
 				</tr>
 
-				{% for patient in recent10patients %}
+				{% for patient in patients %}
 				<tr>
 					<td><a href="{%url 'doctor' patient.id %}">View</a></td>
-					<td> {{patient}}</td>
-					<td> {{patient.phone}}</td>
-				{% endfor %}
+					<td> {{patient}} </td>
+					<td> {{patient.phone}} </td>
+
+					{% endfor %}
 				</tr>
-		
-		
+
+
 			</table>
+
 		</div>
 	</div>
 	<div class="col-md-7">
@@ -45,28 +55,27 @@
 					<th>Location Type</th>
 					<th>Cooldown</th>
 					<th>Created</th>
-					
-					
+
+
 				</tr>
 
 				{% for patient in recent10patients %}
-					{% for location in patient.locations.all %}
-					<tr>
-						<td> {{location.address}}</td>
-						<td> {{location.city}}</td>
-						<td> {{location.loc_type}}</td>
-						<td> {{location.cooldown}}</td>
-						<td> {{location.date_created}}</td>
-						<td><a class="btn btn-sm btn-info" href="{% url 'update_location' location.id %}">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_location' location.id %}">Delete</a></td>
-					</tr>
-					{% endfor %}
+				{% for location in patient.locations.all %}
+				<tr>
+					<td> {{location.address}}</td>
+					<td> {{location.city}}</td>
+					<td> {{location.loc_type}}</td>
+					<td> {{location.cooldown}}</td>
+					<td> {{location.date_created}}</td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'update_location' location.id %}">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_location' location.id %}">Delete</a></td>
+				</tr>
 				{% endfor %}
-		
+				{% endfor %}
+
 			</table>
 		</div>
 	</div>
 </div>
 
 {% endblock %}
-    
