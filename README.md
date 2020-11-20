@@ -1,0 +1,2 @@
+# covidmaplotter
+Django Web Application
