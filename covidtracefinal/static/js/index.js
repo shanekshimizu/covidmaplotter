@@ -1,4 +1,13 @@
 let map;
+var customLabel = {
+  restaurant: {
+    label: 'R'
+  },
+  bar: {
+    label: 'B'
+  }
+};
+
 
 //Create map
 function initMap() {
@@ -9,52 +18,61 @@ function initMap() {
   });
   var infoWindow = new google.maps.InfoWindow;
 
-//Load XML File
-    // Change this depending on the name of your PHP or XML file
-    downloadUrl('maps/sample.xml', function(data) {
-      var xml = data.responseXML;
-      var markers = xml.documentElement.getElementsByTagName('marker');
-      Array.prototype.forEach.call(markers, function(markerElem) {
-        var id = markerElem.getAttribute('id');
-        var name = markerElem.getAttribute('name');
-        var address = markerElem.getAttribute('address');
-        var loc_type = markerElem.getAttribute('loc_type');
-        var point = new google.maps.LatLng(
-            parseFloat(markerElem.getAttribute('latitude')),
-            parseFloat(markerElem.getAttribute('longitude')));
+  //Load XML File
+  // Change this depending on the name of your PHP or XML file
+  downloadUrl('https://covidtracetestbucket.s3-us-west-2.amazonaws.com/phpfiletest.xml', function (data) {
+    var xml = data.responseXML;
+    var markers = xml.documentElement.getElementsByTagName('marker');
+    Array.prototype.forEach.call(markers, function (markerElem) {
+      var id = markerElem.getAttribute('id');
+      var name = markerElem.getAttribute('name');
+      var address = markerElem.getAttribute('address');
+      var loc_type = markerElem.getAttribute('loc_type');
+      var point = new google.maps.LatLng(
+        parseFloat(markerElem.getAttribute('latitude')),
+        parseFloat(markerElem.getAttribute('longitude')));
 
-        var infowincontent = document.createElement('div');
-        var strong = document.createElement('strong');
-        strong.textContent = name
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
+      var infowincontent = document.createElement('div');
+      var strong = document.createElement('strong');
+      strong.textContent = name
+      infowincontent.appendChild(strong);
+      infowincontent.appendChild(document.createElement('br'));
 
-        var text = document.createElement('text');
-        text.textContent = address
-        infowincontent.appendChild(text);
-        var icon = customLabel[loc_type] || {};
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label
-        });
-        // create markers and info windows
-        marker.addListener('click', function() {
-          infoWindow.setContent(infowincontent);
-          infoWindow.open(map, marker);
-        });
+      var text = document.createElement('text');
+      text.textContent = address
+      infowincontent.appendChild(text);
+      var icon = customLabel[loc_type] || {};
+      var marker = new google.maps.Marker({
+        map: map,
+        position: point,
+        label: icon.label
+      });
+      // create markers and info windows
+      marker.addListener('click', function () {
+        infoWindow.setContent(infowincontent);
+        infoWindow.open(map, marker);
       });
     });
-  }
+  });
+}
+
+
+
+
+
+var path = 'covidtracefinal/static/images';
+// Create Marker Cluster
+var markerCluster = new MarkerClusterer(map, markers,
+  { imagePath: `${path}/m` });
 
 
 
 function downloadUrl(url, callback) {
   var request = window.ActiveXObject ?
-      new ActiveXObject('Microsoft.XMLHTTP') :
-      new XMLHttpRequest;
+    new ActiveXObject('Microsoft.XMLHTTP') :
+    new XMLHttpRequest;
 
-  request.onreadystatechange = function() {
+  request.onreadystatechange = function () {
     if (request.readyState == 4) {
       request.onreadystatechange = doNothing;
       callback(request, request.status);
@@ -65,4 +83,4 @@ function downloadUrl(url, callback) {
   request.send(null);
 }
 
-function doNothing() {}
+function doNothing() { }
