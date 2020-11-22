@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-<markers>
-	<marker id="1" address="Foodland" latitude="21.334447" longitude="-158.024915" city="Ewa Beach" loc_type="Retail"/>
-	<marker id="2" address="Caines" latitude="21.452655" longitude="-158.008109" city="Kailua" loc_type="Restaurant"/>
-	<marker id="3" address="Mcdonalds" latitude="21.293933" longitude="-157.828187" city="Kailua" loc_type="Restaurant"/>
-	<marker id="4" address="Lowes" latitude="21.398305" longitude="-158.008977" city="Ewa Beach" loc_type="Retail"/>
-	<marker id="5" address="Applebees" latitude="21.333517" longitude="-158.052849" city="Honolulu" loc_type="Restaurant"/>
-	<marker id="6" address="Dairy Queen" latitude="21.282080" longitude="-157.838744" city="Honolulu" loc_type="Restaurant"/>
-</markers>
