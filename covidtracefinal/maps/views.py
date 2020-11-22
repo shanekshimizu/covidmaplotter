@@ -20,7 +20,6 @@ def home(request):
         recent10locations.append(location)
         recent10count[location.city] = Location.objects.filter(city=location.city).count()
 
-    response = HttpResponse(open('maps/sample.xml').read(), content_type='application/xml')
 
     myFilter = PatientFilter(request.GET, queryset = patients)
     patients = myFilter.qs
@@ -125,6 +124,6 @@ def deleteLocation(request, pk):
 def about(request):
     
 
-    response = HttpResponse(open('maps/sample.xml').read(), content_type='application/xml')
-    return response
+    # response = HttpResponse(open('maps/phpfiletest.xml').read(), content_type='application/xml')
+    # return response
     return render(request, 'maps/about.html')
