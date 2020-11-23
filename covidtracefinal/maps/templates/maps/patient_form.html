@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}
 
-<div class="row">
+<html lang="en">
+	<div class="row">
 	<div class="col-md-6">
 		<div class="card card-body">
 			<h1>{{form_name}}</h1>
@@ -13,13 +14,10 @@
 				<input type="submit" name="{{ submit }}">
 			</form>
 			
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_location' %}">Add Location</a>
+			<!-- <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_location' %}">Add Location</a> -->
 		</div>
 	</div>
 </div>
 
 
-{% endblock %}
-
-
-
+		{% endblock %}
