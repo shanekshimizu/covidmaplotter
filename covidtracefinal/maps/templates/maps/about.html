@@ -45,7 +45,7 @@
 	</div>
 
 </div>
-<div class="col-md-7">
+<div class="col-md-12">
 		<h5>New Cases Locations</h5>
 		<hr>
 		<div class="card card-body">
@@ -56,22 +56,25 @@
 					<th>Location Type</th>
 					<th>Cooldown</th>
 					<th>Created</th>
+					<th>Cases at Location</th>
 
 
 				</tr>
 
-				{% for patient in recent10patients %}
-				{% for location in patient.locations.all %}
+				{% for location in recent10locations %}
 				<tr>
 					<td> {{location.address}}</td>
 					<td> {{location.city}}</td>
 					<td> {{location.loc_type}}</td>
 					<td> {{location.cooldown}}</td>
 					<td> {{location.date_created}}</td>
+					{% for k, v in recent10locations.items %}
+						{% if k == location %}
+							<td>{{ v }}</td>
+						{% endif %}
+					{% endfor %}
 				</tr>
 				{% endfor %}
-				{% endfor %}
-
 			</table>
 		</div>
 	</div>

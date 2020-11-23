@@ -32,9 +32,10 @@
 
 				{% for patient in patients %}
 				<tr>
-					<td><a href="{%url 'doctor' patient.id %}">View</a></td>
-					<td> {{patient}} </td>
-					<td> {{patient.phone}} </td>
+					<td><a href="{%url 'doctor' patient.id %}">View Details</a></td>
+					<td>{{ patient }}</td>
+					<td>{{ patient.address }}</td>
+					<td>{{ patient.phone }}</td>
 
 					{% endfor %}
 				</tr>
@@ -44,7 +45,7 @@
 
 		</div>
 	</div>
-	<div class="col-md-7">
+	<div class="col-md-12">
 		<h5>Locations</h5>
 		<hr>
 		<div class="card card-body">
@@ -55,23 +56,29 @@
 					<th>Location Type</th>
 					<th>Cooldown</th>
 					<th>Created</th>
+					<th>Cases At Location</th>
 
 
 				</tr>
 
-				{% for patient in recent10patients %}
-				{% for location in patient.locations.all %}
+				
+				{% for location in recent10locations %}
 				<tr>
 					<td> {{location.address}}</td>
 					<td> {{location.city}}</td>
 					<td> {{location.loc_type}}</td>
 					<td> {{location.cooldown}}</td>
 					<td> {{location.date_created}}</td>
+					{% for k, v in recent10locations.items %}
+						{% if k == location %}
+							<td>{{ v }}</td>
+						{% endif %}
+					{% endfor %}
 					<td><a class="btn btn-sm btn-info" href="{% url 'update_location' location.id %}">Update</a></td>
 					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_location' location.id %}">Delete</a></td>
 				</tr>
 				{% endfor %}
-				{% endfor %}
+		
 
 			</table>
 		</div>
