@@ -2,6 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('register/', views.registerPage, name="register"),
+	path('login/', views.loginPage, name="login"),  
+	path('logout/', views.logoutUser, name="logout"),
     path('', views.home, name="home"),
     path('doctor/<str:pk_test>/', views.doctor, name="doctor"),
     path('about/', views.about, name="about"),
@@ -11,4 +14,5 @@ urlpatterns = [
     path('create_location', views.createLocation, name="create_location"),
     path('update_location/<str:pk>/', views.updateLocation, name="update_location"),
     path('delete_location/<str:pk>/', views.deleteLocation, name="delete_location"),
+
 ]
