@@ -12,7 +12,7 @@ var customLabel = {
 //Create map
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(21.306415, -157.857034),
+    center: new google.maps.LatLng(21.49615, -157.98664),
     zoom: 11
 
   });
@@ -56,14 +56,6 @@ function initMap() {
   });
 }
 
-
-
-
-
-var path = 'covidtracefinal/static/images';
-// Create Marker Cluster
-var markerCluster = new MarkerClusterer(map, markers,
-  { imagePath: `${path}/m` });
 
 
 
