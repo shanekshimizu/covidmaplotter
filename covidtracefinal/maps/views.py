@@ -60,13 +60,20 @@ def home(request):
     patient_count = Patient.objects.count()
 
     recent10patients = []
-    recent10locations = []
+    recent10locations = {}
     recent10count = {}
+    unique_locations = []
     for patient in patients:
-        recent10patients.append(patient)
-    for location in locations:
-        recent10locations.append(location)
-        recent10count[location.city] = Location.objects.filter(city=location.city).count()
+        if len(recent10patients) <= 10:
+            recent10patients.append(patient)
+    
+    for patient in recent10patients:
+        for location in patient.locations.all():
+                if location in recent10locations:
+                    recent10locations[location] += 1
+                else:
+                    recent10locations[location] = 1
+
 
 
     myFilter = PatientFilter(request.GET, queryset = patients)
@@ -79,7 +86,7 @@ def home(request):
         'recent10locations': recent10locations,
         'recent10count': recent10count,
         'recent10patients': recent10patients, 'myFilter': myFilter,
-        'patient_count': patient_count
+        'patient_count': patient_count,
     }
     return render(request, 'maps/dashboard.html', context)
 
@@ -217,16 +224,29 @@ def about(request):
     patients = Patient.objects.all()
     recent10patients = []
     patient_count = Patient.objects.count()
-    new_cases = len(recent10patients)
+    
+
+    recent10locations = {}
+    recent10patients = []
+
 
     for patient in patients:
-        if patient.date_created.strftime('%Y-%m-%d') == datetime.date.today():
+        if patient.date_created.strftime('%Y-%m-%d') == datetime.date.today().strftime('%Y-%m-%d') and len(recent10patients) <= 10:
             recent10patients.append(patient)
-       
+
+    for patient in recent10patients:
+        for location in patient.locations.all():
+                if location in recent10locations:
+                    recent10locations[location] += 1
+                else:
+                    recent10locations[location] = 1
+                    
+    new_cases = len(recent10patients)
 
     context = {
         'patients': patients,
         'recent10patients': recent10patients,
+        'recent10locations': recent10locations,
         'patient_count': patient_count,
         'new_cases': new_cases,
 
