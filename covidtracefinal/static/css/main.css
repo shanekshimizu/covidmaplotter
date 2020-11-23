@@ -8,15 +8,14 @@ body {
 }
 
 
-#total-orders {
-    background-color: #4cb4c7;
+#new-cases {
+    background-color: #ad283a;
 }
 
 
-#orders-delivered {
-    background-color: #7abecc;
+#total-cases {
+    background-color: #1c51e2;
 }
 
-#orders-pending {
-    background-color: #7CD1C0;
-}
+
+
