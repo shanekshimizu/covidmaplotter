@@ -16,6 +16,7 @@ from .forms import *
 from .filters import *
 from .dataxml import *
 
+
 @unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
@@ -24,6 +25,8 @@ def registerPage(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
+            firstname = form.cleaned_data.get('first_name')
+            lastname = form.cleaned_data.get('last_name')
             messages.success(request, 'Account was created for ' + user)
 
             return redirect('login')
@@ -62,7 +65,6 @@ def home(request):
     recent10patients = []
     recent10locations = {}
     recent10count = {}
-    unique_locations = []
     for patient in patients:
         if len(recent10patients) <= 10:
             recent10patients.append(patient)
@@ -123,6 +125,7 @@ def createPatient(request):
         if form.is_valid():
             form.save()
             return redirect('/')
+    
 
     context = {
         'form': form,
@@ -170,7 +173,9 @@ def createLocation(request):
     Create Location
     '''
     form = LocationForm()
+    form2 = PlaceForm()
     form_name = "Location"
+
    
     if request.method == 'POST':
         form = LocationForm(request.POST)
@@ -180,6 +185,7 @@ def createLocation(request):
 
     context = {
         'form': form,
+        'form2': form2,
         'form_name': form_name,
     }
     return render(request, 'maps/patient_form.html', context)

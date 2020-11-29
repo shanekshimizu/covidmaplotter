@@ -7,7 +7,7 @@
 # from django.http import HttpResponse, HttpResponseRedirect
 
 
-# headers = {'Content-Type': 'text/xml; charset=utf-8'}
+# headers = {'Content-Type': 'text/xml', 'Accept': 'application/xml'}
 
 # #Start XML file, create parent node
 # root = minidom.Document() 
@@ -44,10 +44,10 @@
 #     rootchild.setAttribute("address", str(row[1]))
 #     rootchild.setAttribute("latitude", str(row[2]))
 #     rootchild.setAttribute("longitude", str(row[3]))
-#     rootchild.setAttribute("city", str(row[4]))
+#     # rootchild.setAttribute("city", str(row[4]))
 #     rootchild.setAttribute("loc_type", str(row[5]))
 
-#     xml.appendChild(rootchild)
+#     # xml.appendChild(rootchild)
 
 #     xml_str = root.toprettyxml(indent="\t")
 
@@ -56,7 +56,10 @@
 #     with open(save_path_file, "w") as f:
 #         f.write(xml_str)
 
+# # url = 'http://google.com'
+# # response = requests.request("POST", url, headers = headers, data = save_path_file)
+# # print(response.text.encode('utf8'))
 # #Dump to browser
-# print(save_path_file)
+# # print(save_path_file)
 # #Close server connection
 # cnx.close()

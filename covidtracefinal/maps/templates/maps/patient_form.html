@@ -2,22 +2,29 @@
 {% load static %}
 {% block content %}
 
+{% load crispy_forms_tags %}
 <html lang="en">
-	<div class="row">
+<div class="row">
 	<div class="col-md-6">
 		<div class="card card-body">
 			<h1>{{form_name}}</h1>
 			<form action="" method="POST">
 				{% csrf_token %}
-				{{form}}
+				{{form|crispy}}
 				<hr>
 				<input type="submit" name="{{ submit }}">
 			</form>
-			
-			<!-- <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_location' %}">Add Location</a> -->
+			<form action="" method="POST">
+				{% if form_name == 'Location' %}
+					{{form2}}
+				{% endif %}
+			</form>
+			{% if form_name != 'Location' %}
+				<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_location' %}">Add Location</a>
+			{% endif %}
 		</div>
 	</div>
 </div>
 
 
-		{% endblock %}
+{% endblock %}
