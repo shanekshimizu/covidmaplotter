@@ -1,5 +1,5 @@
 from django.db import models
-
+from location_field.models.plain import PlainLocationField
 #Create your models here. (for database)
 #run python3 manage.py makemigrations after creating classes, then run python3 manage.py migrate
 #then go to admin and put in register
@@ -88,3 +88,8 @@ class Patient(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.firstname, self.lastname)
+
+class Place(models.Model):
+    place = models.CharField(max_length=200)
+    coordinates = PlainLocationField(based_fields=['place'], zoom=7)
+
